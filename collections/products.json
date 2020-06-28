@@ -1,0 +1,16 @@
+[{
+  "_id": {
+    "$oid": "5ef8906c47f0a399021ce6bd"
+  },
+  "price": 649,
+  "page_title": "iPhone 11",
+  "name": "iPhone 11",
+  "id": "1",
+  "primary_category_id": "phones",
+  "short_description": "Apple's newest iPhone",
+  "image_groups": [
+    {}
+  ],
+  "long_description": "bla bla bla",
+  "brand": "apple"
+}]

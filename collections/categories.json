@@ -1,0 +1,26 @@
+[{
+  "_id": {
+    "$oid": "5ef4b708c806394fd5a745e6"
+  },
+  "categories": [
+    {
+      "id": "Phones",
+      "image": "string",
+      "name": "Phones",
+      "description": "yoq",
+      "parent_category": "",
+      "page_title": ""
+    },
+    {
+      "id": "laptops",
+      "image": "string",
+      "name": "Laptops",
+      "description": "s",
+      "parent_category_id": "sad"
+    }
+  ],
+  "id": "electronics",
+  "name": "electronics",
+  "description": "bla",
+  "title": "page"
+}]
