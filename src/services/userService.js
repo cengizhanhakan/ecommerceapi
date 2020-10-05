@@ -17,13 +17,13 @@ exports.signUp = async (userInputDTO) => {
         email: email
     });
     if (Item) {
-        return 'User already exists'
+        return ({msg:'User already exists'});
     }
     if (password.length <= 6) {
-        return 'password needs to be at least 6 characters'
+        return ({msg:'password needs to be at least 6 characters'});
     }
     if (name.length == 0) {
-        return 'name cant be empty'
+        return ({msg:'name cant be empty'});
     }
     let userId = uuid.v4();
     let hashedPassword = await argon2.hash(password);
@@ -68,14 +68,14 @@ exports.googlecallback = [
 ]
 */
 exports.activationRequest = async (email) => {
-    let userRecord = User.findOne({
+    let userRecord = await User.findOne({
         email: email
     })
     if (userRecord) {
-        let emailService = await mailerService.activationMail(email);
-        return emailService;
+        let activationMail = await mailerService.activationMail(email);
+        return activationMail;
     }
-    return 'User does not exist'
+    return ({msg:'User does not exist'});
 }
 
 exports.activationActivate = async (email, token) => {
@@ -83,7 +83,7 @@ exports.activationActivate = async (email, token) => {
         activationToken: token
     })
     if (!Token) {
-        return 'Token expired';
+        return ({msg:'Token expired'});
     }
     let statusChanged = await User.findOneAndUpdate({
         email: email
@@ -94,7 +94,7 @@ exports.activationActivate = async (email, token) => {
         await Tokens.findOneAndDelete({
             activationToken: token
         });
-        return 'user activated'
+        return ({msg:'user activated'});
     }
 }
 
@@ -107,7 +107,7 @@ exports.forgotPw = async (email) => {
         let emailService = await mailerService.passwordMail(email);
         return emailService;
     }
-    return 'User does not exist'
+    return ({msg:'User does not exist'});
 }
 
 
@@ -116,7 +116,7 @@ exports.changePw = async (email, token, password) => {
         pwResetToken: token
     })
     if (!Token) {
-        return 'Token expired'
+        return ({msg:'Token expired'});
     }
     let hashedPassword = await argon2.hash(password);
     let passwordUpdated = await User.findOneAndUpdate({
@@ -128,6 +128,6 @@ exports.changePw = async (email, token, password) => {
         await Tokens.findOneAndDelete({
             pwResetToken: token
         });
-        return 'password updated'
+        return ({msg:'password updated'});
     }
 }

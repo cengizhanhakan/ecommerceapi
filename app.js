@@ -14,9 +14,10 @@ var mongoose = require("mongoose");
 var cors = require('cors');
 require('dotenv').config();
 mongoose.connect(process.env.DATABASEURL, {
-  useNewUrlParser: true
+  useNewUrlParser: true,
+  useUnifiedTopology:true,  
 });
-;
+
 
 
 // All environments

@@ -33,9 +33,9 @@ exports.passwordMail = async (email) => {
     };
     transport.sendMail(message, function (err, info) {
         if (err) {
-            console.log(err)
+            return err
         } else {
-            console.log(info);
+            return ({msg:'Email sent.'})
         }
     });
 }

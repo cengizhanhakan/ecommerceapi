@@ -1,5 +1,3 @@
-const express = require('express');
-const router = express();
 const Cart = require('../models/cart.js');
 const Products = require('../models/products.js');
 
@@ -13,7 +11,7 @@ exports.viewCart = async (userId) => {
     let Product = await Products.findOne({
       id: product.productid
     });
-    Product ? Result.push(Product) : {}
+    Product ? Result.push(Product) : null
   }
 
   for (let product of User.products) {

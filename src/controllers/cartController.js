@@ -1,43 +1,35 @@
-const express = require('express');
+const express = require("express");
 const router = express();
-const {
-  ensureAuthenticated
-} = require('../config/auth');
-const cartService = require('../services/cartService');
+const { ensureAuthenticated } = require("../config/auth");
+const cartService = require("../services/cartService");
 
-
-router.get('/cart', ensureAuthenticated, async (req, res) => {
+router.get("/cart", ensureAuthenticated, async (req, res) => {
   try {
-    let {
-      userId
-    } = req.query;
+    let { userId } = req.query;
     let items = await cartService.viewCart(userId);
-    res.json(items)
+    return res.json(items);
   } catch (err) {
-    res.json(err)
+    return res.json(err);
   }
-})
-router.post('/addtocart', ensureAuthenticated, async (req, res) => {
+});
+router.post("/addtocart", ensureAuthenticated, async (req, res) => {
   try {
-    let {
-      productId,
-      quantity,
-      userId
-    } = req.body;
+    let { productId, quantity, userId } = req.body;
     let result = await cartService.addToCart(userId, productId, quantity);
-    res.json(result)
-  } catch {
-    res.json("anan")
+    return res.json(result);
+  } catch (err) {
+    return res.json(err);
   }
 });
 
-router.delete('/removefromcart', ensureAuthenticated, async (req, res) => {
-  let {
-    productId,
-    userId
-  } = req.body;
-  let result = await cartService.addtocart(userId, productId);
-  res.json(result)
+router.delete("/removefromcart", ensureAuthenticated, async (req, res) => {
+  try {
+    let { productId, userId } = req.body;
+    let result = await cartService.addtocart(userId, productId);
+    return res.json(result);
+  } catch (err) {
+    return res.json(err);
+  }
 });
 
 module.exports = router;

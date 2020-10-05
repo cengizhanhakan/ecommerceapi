@@ -3,25 +3,22 @@ const router = express();
 const categoryService = require("../services/categoryService");
 
 router.get("/categories/:categoryName", async (req, res) => {
-    try {
-        let {
-            categoryName
-        } = req.params;
-        let Items = await categoryService.findOne(categoryName);
-        res.json(Items)
-    } catch {
-        res.json('error')
-    }
+  try {
+    let { categoryName } = req.params;
+    let Items = await categoryService.findOne(categoryName);
+    return res.json(Items);
+  } catch (err) {
+    return res.json(err);
+  }
 });
 
-router.get("/categories/", async (req, res) => {
-    try {
-        let Items = await categoryService.findAll();
-        res.json(Items)
-    } catch {
-        res.json('error')
-    }
+router.get("/categories", async (req, res) => {
+  try {
+    let Items = await categoryService.findAll();
+    return res.json(Items);
+  } catch (err) {
+    return res.json(err);
+  }
 });
-
 
 module.exports = router;

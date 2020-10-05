@@ -14,7 +14,7 @@ exports.viewWishlist = async (userId) => {
     });
     Product ? Result.push(Product) : {}
   }
-  return Result
+  return Result;
 }
 
 exports.addToWishlist = async (userId, productId) => {
@@ -25,7 +25,7 @@ exports.addToWishlist = async (userId, productId) => {
     User.products.push(productId)
     return await User.save();
   }
-  return 'Item already exists on your wishlist'
+  return ({msg:'Item already exists on your wishlist'});
 }
 
 exports.removeFromWishlist = async (userId, productId) => {

@@ -1,39 +1,39 @@
-const express = require('express');
+const express = require("express");
 const router = express();
-const {
-  ensureAuthenticated
-} = require('../config/auth');
-const WishlistService = require('../services/wishlistService');
+const { ensureAuthenticated } = require("../config/auth");
+const WishlistService = require("../services/wishlistService");
 
-router.get('/wishlist', ensureAuthenticated, async (req, res) => {
+router.get("/wishlist", ensureAuthenticated, async (req, res) => {
   try {
-  let {
-    userID
-  } = req.query
-  let Items = await WishlistService.viewWishlist(userID);
-  res.json(Items)
-} catch {
-  res.json('error')
-}
+    let { userID } = req.query;
+    let wishlistRecords = await WishlistService.viewWishlist(userID);
+    return res.json(wishlistRecords);
+  } catch (err) {
+    return res.json(err);
+  }
 });
 
-
-router.post('/addtowishlist', ensureAuthenticated, async (req, res) => {
-  let {
-    userID,
-    productID
-  } = req.body
-  let Items = await WishlistService.addToWishlist(userID, productID);
-  res.json(Items)
+router.post("/addtowishlist", ensureAuthenticated, async (req, res) => {
+  try {
+    let { userID, productID } = req.body;
+    let Item = await WishlistService.addToWishlist(userID, productID);
+    return res.json(Item);
+  } catch (err) {
+    return res.json(err);
+  }
 });
 
-router.delete('/removefromwishlist', ensureAuthenticated, async (req, res) => {
-  let {
-    userID,
-    productID
-  } = req.body
-  let Items = await WishlistService.removeFromWishlist(userID, productID);
-  res.json(Items)
+router.delete("/removefromwishlist", ensureAuthenticated, async (req, res) => {
+  try {
+    let { userID, productID } = req.body;
+    let wishlistRecords = await WishlistService.removeFromWishlist(
+      userID,
+      productID
+    );
+    return res.json(wishlistRecords);
+  } catch (err) {
+    return res.json(err);
+  }
 });
 
 module.exports = router;

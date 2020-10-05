@@ -27,5 +27,5 @@ exports.search = async (searchParam) => {
 	if (Items) {
 		return Items
 	}
-	return 'No product found.'
+	return {msg:'No product found.'}
 }

@@ -1,4 +1,4 @@
-var nodemailer = require("nodemailer");
+let nodemailer = require("nodemailer");
 let transport = nodemailer.createTransport({
   direct: true,
   host: process.env.mailProvider,
